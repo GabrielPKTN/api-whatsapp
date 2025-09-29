@@ -1,0 +1,23 @@
+{
+  "name": "api-whatsapp",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/GabrielPKTN/api-whatsapp#readme",
+  "bugs": {
+    "url": "https://github.com/GabrielPKTN/api-whatsapp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GabrielPKTN/api-whatsapp.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
