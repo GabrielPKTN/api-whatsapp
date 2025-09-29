@@ -36,7 +36,7 @@ const getAllDataUsers = () => {
     return message
 }
 
-const getDataUser = (nickname) => {
+const getAllDataUser = (nickname) => {
     
     let message = {
         status: true,
@@ -65,10 +65,50 @@ const getDataUser = (nickname) => {
     return message
 }
 
+const getAllDataContacts = (nickname) => {
+
+    let message = {
+        status: true,
+        status_code: 200,
+        development:"Gabriel Lacerda Correia", 
+        user: {nickname},
+        contacts: [
+
+        ]
+    }
+
+    dataUser.contatos['whats-users'].forEach((user) => {
+        if (user.nickname === nickname) {
+            user.contacts.forEach((contact) => {
+
+                let name = contact.name
+                let photo = contact.image
+                let description = contact.description
+
+                message.contacts.push(
+                    {
+                        name,
+                        photo,
+                        description
+
+                    }
+                )
+            })
+        }
+    })
+
+    return message
+
+}
+
+
 
 // console.log(getAllDataUsers())
-console.log(getDataUser('Ricky'))
+// console.log(getDataUser('Ricky'))
+// console.log(getAllDataContacts('BeeR'))
 
 module.exports = {
-    getAllDataUsers
+    getAllDataUsers,
+    getAllDataUser,
+    getAllDataContacts
 }
