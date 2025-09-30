@@ -231,7 +231,7 @@ const getMessageByKeyword = (cellphoneNumber, keyword) => {
         }
     })
 
-    let messageResult = result.messages.length < 1 ? MESSAGE_ERROR : message
+    let messageResult = result.messages.length < 1 ? MESSAGE_ERROR : result
     return messageResult
 
 }
