@@ -36,6 +36,7 @@ const getAllDataUsers = () => {
     return message
 }
 
+// Faz a listagem dos dados do usuário através do nickname
 const getAllDataUser = (nickname) => {
     
     let message = {
@@ -65,6 +66,7 @@ const getAllDataUser = (nickname) => {
     return message
 }
 
+// Faz a listagem dos dados de todos os contatos do usuário
 const getAllDataContacts = (nickname) => {
 
     let message = {
@@ -85,14 +87,8 @@ const getAllDataContacts = (nickname) => {
                 let photo = contact.image
                 let description = contact.description
 
-                message.contacts.push(
-                    {
-                        name,
-                        photo,
-                        description
+                message.contacts.push({ name, photo, description })
 
-                    }
-                )
             })
         }
     })
@@ -101,6 +97,8 @@ const getAllDataContacts = (nickname) => {
 
 }
 
+// Faz a listagem de todas as mensagens trocadas com os 
+// contatos de respectivo usuário pelo nickname
 const getAllMessagesUser = (nickname) => {
 
     let message = {
@@ -151,21 +149,79 @@ const getAllMessagesUser = (nickname) => {
 
     })
 
-    // Teste para verificar se realmente existe uma conversa no array
+    return message
 
-    // message.contacts.forEach((contact) => {
+}
 
-    //     if (contact.name === "Jane Smith") {
+const getUserChat = (nickname, contactName) => {
 
-    //         contact.messages.forEach((message) => {
-    //         console.log(message)
-    //     })
+    let message = {
+        status: true,
+        status_code: 200,
+        development:"Gabriel Lacerda Correia", 
+        user: {nickname},
+        contact: {}
+    }
 
-    //     }
+    dataUser.contatos['whats-users'].forEach((user) => {
 
-    // })
+        if (user.nickname === nickname) {
+            user.contacts.forEach((contact) => {
+                if (contact.name === contactName) {
+                    
+                    let messages = []
+
+                    contact.messages.forEach((message) => {
+
+                        let messageSender = message.sender
+                        let messageContent = message.content
+                        let messageTime = message.time 
+
+                        messages.push({ messageSender, messageContent, messageTime })
+                
+                    })
+                    message.contact.name = contact.name
+                    message.contact.messages =  messages
+
+                }
+            })
+        }
+
+    })
 
     return message
+
+}
+
+const searchFilter = (nickname, keyword) => {
+
+    result = {
+        status: true,
+        status_code: 200,
+        development: "Gabriel Lacerda Correia",
+        keyword: { keyword },
+        messages: []
+    }
+
+    dataUser.contatos['whats-users'].forEach((user) => {
+        if (user.nickname === nickname) {
+            user.contacts.forEach((contact) => {
+                contact.messages.forEach((message) => {
+                    if(message.content.toLowerCase().includes(keyword.toLowerCase())) {
+                        
+                        let messageSender = message.sender
+                        let messageContent = message.content
+                        let messageTime = message.time
+
+                        result.messages.push({ messageSender, messageContent, messageTime })
+
+                    }
+                })
+            })
+        }
+    })
+
+    return result
 
 }
 
@@ -175,10 +231,14 @@ const getAllMessagesUser = (nickname) => {
 // console.log(getDataUser('Ricky'))
 // console.log(getAllDataContacts('BeeR'))
 // console.log(getAllMessagesUser('Sand'))
+// console.log(getUserChat('Ricky', 'Ana Maria'))
+// console.log(searchFilter('Ricky', 'mark'))
 
 module.exports = {
     getAllDataUsers,
     getAllDataUser,
     getAllDataContacts,
-    getAllMessagesUser
+    getAllMessagesUser,
+    getUserChat,
+    searchFilter
 }
